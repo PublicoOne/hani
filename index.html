@@ -1,52 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trayectoria del Huracán</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <style>
-    #map { height: 600px; width: 100%; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cono de Trayectoria del NHC</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body>
+    <div id="map" style="height: 500px;"></div>
 
-  <h1>Visualización de la Trayectoria del Huracán s</h1>
-  <div id="map"></div>
-
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-  <script>
-    // Inicializa el mapa en un punto y nivel de zoom general
-    const map = L.map('map').setView([25, -75], 5);
-
-    // Capa de mapas de fondo
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    // URL del archivo GeoJSON de la trayectoria del huracán
-    const geoJsonUrl = 'huracan_trayectoria.geojson'; // Asegúrate de que el archivo GeoJSON esté en la misma carpeta
-
-    // Cargar y mostrar el archivo GeoJSON en el mapa
-    fetch(geoJsonUrl)
-      .then(response => response.json())
-      .then(data => {
-        // Añadir la capa GeoJSON al mapa
-        L.geoJSON(data, {
-          style: function(feature) {
-            return { color: 'blue', weight: 2 }; // Estilo de la línea de trayectoria
-          },
-          onEachFeature: function(feature, layer) {
-            // Opcional: añade un pop-up con información para cada punto si es necesario
-            if (feature.properties && feature.properties.name) {
-              layer.bindPopup(feature.properties.name);
-            }
-          }
-        }).addTo(map);
-      })
-      .catch(error => console.error('Error cargando el GeoJSON:', error));
-  </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
