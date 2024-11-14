@@ -45,7 +45,15 @@ def kmz_to_geojson(kmz_url, output_geojson_path):
     print(f"Archivo GeoJSON guardado en: {output_geojson_path}")
 
 # Llamar a la función continuamente con tiempo de espera
+vear = 0
 while True:
     if name not in os.listdir("Cones/"):
         kmz_to_geojson(url, os.path.join("Cones", name + ".geojson"))
+        vear = vear + 1
+        print(vear)
+    else:
+        os.remove("Cones", name + ".geojson")
+        kmz_to_geojson(url, os.path.join("Cones", name + ".geojson"))
+        vear = vear + 1
+        print(vear)
     time.sleep(100)
