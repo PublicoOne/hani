@@ -28,7 +28,7 @@ const coneCoordinates = [
 
 // Dibujar la línea de trayectoria en el mapa
 const trackLine = L.polyline(trackPoints, {
-    color: 'blue',
+    color: 'orange',
     weight: 3,
     opacity: 0.7
 }).addTo(map);
