@@ -1,50 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualización de Huracanes</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
-    <style>
-        #map {
-            height: 600px;
-            width: 100%;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trayectoria del Huracán</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    #map { height: 600px; width: 100%; }
+  </style>
 </head>
 <body>
 
-<h1>Visualización de la Trayectoria de Huracanes</h1>
-<div id="map"></div>
+  <h1>Visualización de la Trayectoria del Huracán</h1>
+  <div id="map"></div>
 
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script>
-    // Inicializar el mapa
-    const map = L.map('map').setView([20, -90], 5); // Centramos en coordenadas de ejemplo
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    // Inicializa el mapa en un punto y nivel de zoom general
+    const map = L.map('map').setView([25, -75], 5);
 
-    // Cargar el mapa base de OpenStreetMap
+    // Capa de mapas de fondo
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '© OpenStreetMap'
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // URL de los datos del huracán en formato GeoJSON
-    const hurricaneDataUrl = "URL_DE_TUS_DATOS_GEOJSON";
+    // URL del archivo GeoJSON de la trayectoria del huracán
+    const geoJsonUrl = 'ruta-a-tu-archivo-geojson.geojson'; // Actualiza con la ruta a tu archivo
 
-    // Cargar datos GeoJSON
-    fetch(hurricaneDataUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Añadir datos de trayectoria al mapa
-            L.geoJSON(data, {
-                style: {
-                    color: "blue",
-                    weight: 2
-                }
-            }).addTo(map);
-        })
-        .catch(error => console.log("Error cargando los datos:", error));
-</script>
+    // Cargar y mostrar el archivo GeoJSON en el mapa
+    fetch(geoJsonUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Añadir la capa GeoJSON al mapa
+        L.geoJSON(data, {
+          style: function(feature) {
+            return { color: 'blue', weight: 2 }; // Estilo de la línea de trayectoria
+          },
+          onEachFeature: function(feature, layer) {
+            // Opcional: añade un pop-up con información para cada punto si es necesario
+            if (feature.properties && feature.properties.name) {
+              layer.bindPopup(feature.properties.name);
+            }
+          }
+        }).addTo(map);
+      })
+      .catch(error => console.error('Error cargando el GeoJSON:', error));
+  </script>
 
 </body>
 </html>
