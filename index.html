@@ -3,23 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Meteorológico</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <title>Mapa Vacío</title>
+    <!-- Incluimos el CSS de Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
-        #map { height: 500px; }
+        /* Establecemos el tamaño del mapa para ocupar toda la ventana */
+        #map {
+            height: 100vh; /* 100% de la altura de la ventana */
+        }
     </style>
 </head>
 <body>
-    <div id="map"></div>
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        var map = L.map('map').setView([51.505, -0.09], 13);  // Coordenadas iniciales (ejemplo Londres)
+<!-- Contenedor del mapa -->
+<div id="map"></div>
 
-        // Añadir capa base del mapa (por ejemplo OpenStreetMap)
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-    </script>
+<!-- Incluimos el script de Leaflet.js -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    // Creamos el mapa centrado en las coordenadas (0, 0) y con nivel de zoom 2
+    var map = L.map('map').setView([0, 0], 2);
+
+    // Usamos un tile layer vacío o básico de OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        noWrap: true,  // Evita que el mapa se repita en los bordes
+        minZoom: 2,    // Nivel mínimo de zoom
+        maxZoom: 19    // Nivel máximo de zoom
+    }).addTo(map);
+</script>
+
 </body>
 </html>
