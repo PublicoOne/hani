@@ -1,40 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Mapa del NHC - Cono de Incertidumbre</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Meteorológico</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
-        /* Asegúrate de que el mapa ocupe toda la ventana */
-        #map {
-            height: 100%;
-            width: 100%;
-        }
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
+        #map { height: 500px; }
     </style>
 </head>
 <body>
     <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        function initMap() {
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 5,
-                center: { lat: 25.0, lng: -90.0 }, // Centro aproximado de la zona afectada
-            });
+        var map = L.map('map').setView([51.505, -0.09], 13);  // Coordenadas iniciales (ejemplo Londres)
 
-            // Carga el KML con el cono de incertidumbre
-            const kmlLayer = new google.maps.KmlLayer({
-                url: 'https://www.nhc.noaa.gov/gis/kml/nhc.kmz', // URL del archivo KMZ activo
-                map: map
-            });
-
-            // Opcional: Ajusta el mapa automáticamente para encuadrar el cono
-            kmlLayer.addListener('defaultviewport_changed', function() {
-                map.fitBounds(kmlLayer.getDefaultViewport());
-            });
-        }
+        // Añadir capa base del mapa (por ejemplo OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
     </script>
 </body>
 </html>
