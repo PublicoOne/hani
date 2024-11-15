@@ -1,4 +1,4 @@
-function createMapNormal(){
+export function createMapNormal(){
     var map = L.map('map', {
         center: [0, 0],
         zoom: 2,
@@ -15,4 +15,5 @@ function createMapNormal(){
         minZoom: 2,
         maxZoom: 22,
     }).addTo(map);
+
 }
